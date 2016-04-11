@@ -15,7 +15,9 @@ var message_id = Message.find(function(err,results){
     console.log("Error while getting last id: " + err);
 
   } else {
-    message_id = Number(results[0].message_id) + 1;
+    if(message_id){
+      message_id = Number(results[0].message_id) + 1;
+    }
   }
 })
 .sort({$natural: -1})
