@@ -23,29 +23,124 @@ import smile from './icon_e_smile.gif';
 import surprised from './icon_e_surprised.gif';
 import ugeek from './icon_e_ugeek.gif';
 
-export default {
-  arrow: arrow,
-  cool: cool,
-  cry: cry,
-  biggrin: biggrin,
-  confused: confused,
-  geek: geek,
-  wink: wink,
-  eek: eek,
-  evil: evil,
-  exclaim: exclaim,
-  idea: idea,
-  lol: lol,
-  mad: mad,
-  mrgreen: mrgreen,
-  neutral: neutral,
-  question: question,
-  razz: razz,
-  redface: redface,
-  rolleyes: rolleyes,
-  twisted: twisted,
-  sad: sad,
-  smile: smile,
-  surprised: surprised,
-  ugeek: ugeek
-}
+export default [
+  { 
+    icon: arrow,
+    tags: ['::arrow::']
+  },
+
+  { 
+    icon: cool,
+    tags: ['::cool::']
+  },
+
+  { 
+    icon: cry,
+    tags: ['::cry::']
+  },
+
+  { 
+    icon: biggrin,
+    tags: ['::biggrin::']
+  },
+
+  { 
+    icon: confused,
+    tags: ['::confused::']
+  },
+
+  { 
+    icon: geek,
+    tags: ['::geek::']
+  },
+
+  { 
+    icon: wink,
+    tags: ['::wink::']
+  },
+
+  { 
+    icon: eek,
+    tags: ['::eek::']
+  },
+
+  { 
+    icon: evil,
+    tags: ['::evil::']
+  },
+
+  { 
+    icon: exclaim,
+    tags: ['::exclaim::']
+  },
+
+  { 
+    icon: idea,
+    tags: ['::idea::']
+  },
+
+  { 
+    icon: lol,
+    tags: ['::lol::']
+  },
+
+  { 
+    icon: mad,
+    tags: ['::mad::']
+  },
+
+  { 
+    icon: mrgreen,
+    tags: ['::mrgreen::']
+  },
+
+  { 
+    icon: neutral,
+    tags: ['::neutral::']
+  },
+
+  { 
+    icon: question,
+    tags: ['::question::']
+  },
+
+  {
+    icon: razz,
+    tags: ['::razz::']
+  },
+
+  {
+    icon: redface,
+    tags: ['::redface::']
+  },
+
+  {
+    icon: rolleyes,
+    tags: ['::rolleyes::']
+  },
+
+  {
+    icon: twisted,
+    tags: ['::twisted::']
+  },
+
+  {
+    icon: sad,
+    tags: ['::sad::']
+  },
+
+  {
+    icon: smile,
+    tags: ['::smile::']
+  },
+
+  { 
+    icon: surprised,
+    tags: ['::surprised::']
+  },
+
+  {
+    icon: ugeek,
+    tags: ['::ugeek::']
+  }
+]

@@ -13,11 +13,22 @@ export default () => {
         });
       })
     }],
-    template: '<div><div ng-repeat="mess in data track by mess.message_id">' +
-      '<span class="mess__username">{{mess.username}}</span>' +
-      '<span class="mess__time"> - {{mess.time | date:\'medium\'}}</span>' +
-      '<p class="mess__content" ng-bind-html="mess.content | smiley"></p>' +
-      '<div ng-if="(!$last)" class="divider"></div>' +
-      '</div>'
+    template: '' + 
+    '<md-content>' +
+      '<md-list>' + 
+        '<md-list-item ng-repeat="mess in data track by mess.message_id">' +
+          '<md-card flex>' + 
+            '<md-card-title>' +
+              '<md-card-title-text class="mess__header" layout="row" layout-align="space-between center">' +
+                '<span class="md-headline">{{mess.username}}</span>' +
+                '<span class="md-subhead mess__time">{{mess.time | date:\'medium\'}}</span>' +
+              '</md-card-title-text>' +
+            '</md-card-title>' +
+            '<md-card-content ng-bind-html="mess.content | smiley">' + 
+            '</md-card-content>' +
+          '</md-card>' + 
+        '</md-list-item>' +
+      '</md-list>' +
+    '<md-content>'
   };
 }
