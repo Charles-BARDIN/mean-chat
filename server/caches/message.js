@@ -1,13 +1,12 @@
 var Entities = require('html-entities').AllHtmlEntities;
 
-var entities = new Entities();
-
 var config = require('./../constants');
 var db = require('./../db/crud');
 
 var CACHE_LIMIT = config.CACHE_LIMIT;
 
 var messageCollection = [];
+var entities = new Entities();
 
 var addMessage = function(message, callback){
   messageToSend = {

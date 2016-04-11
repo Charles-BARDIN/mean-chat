@@ -2,18 +2,15 @@ var webpack = require ('webpack');
 var path = require('path');
 
 module.exports = {
-    devtool: 'inline-source-map', // output line for better debugging
-    entry: [ // Where is webpack gonna look for entry files to load
-        'webpack-dev-server/client?http://127.0.0.1:8080',
-        'webpack/hot/dev-server', // auto reloading
+    entry: [
         'bootstrap-loader',
-        './www' // our app entry
+        './www'
     ],
-    output: { // Where webpack will bundle our app
+    output: {
         path: path.join(__dirname, 'public'),
         filename: 'bundle.js'
     },
-    resolve: { //Where webpack will look for files
+    resolve: {
         modulesDirectories: ['node_modules', 'www'],
         extensions: ['', '.js', '.scss']
     },
@@ -45,6 +42,13 @@ module.exports = {
                 loader: "file" 
             },
             {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
+            },
+            {
                 test: /\.(woff2?|ttf|eot|svg)$/,
                 loader: 'url?limit=10000'
             },
@@ -55,16 +59,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.ProvidePlugin({
             jQuery: "jquery"
         })
-    ],
-    devServer: {
-        hot: true,
-        proxy: {
-            '*': 'http://localhost:1000'
-        }
-    }
+    ]
 };

@@ -45,6 +45,13 @@ module.exports = {
                 loader: "file" 
             },
             {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
+            },
+            {
                 test: /\.(woff2?|ttf|eot|svg)$/,
                 loader: 'url?limit=10000'
             },

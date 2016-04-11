@@ -1,7 +1,6 @@
 <div>
   <div class="navbar chat__navbar">
     <button class="btn btn-xs btn-info chat__form__prev-button"
-            ng-disabled="!newMess"
             ng-click="togglePreviewMessage()"
     >
       {{preview ? "Hide" : "Show"}} Preview
@@ -46,7 +45,7 @@
 
     <div id="preview" ng-if="newMess && preview">
       <h3>Preview</h3>
-      <div ng-bind-html="newMess | messagePreview">
+      <div ng-bind-html="newMess | messagePreview | smiley">
       </div>
     </div>
   </form>
