@@ -1,17 +1,21 @@
 <div>
-  <div class="chat__navbar">
-    <button class="chat__form__prev-button"
-            ng-click="togglePreviewMessage()"
-    >
-      {{preview ? "Hide" : "Show"}} Preview
-    </button>
+  <md-toolbar layout="row" layout-align="center center" class="chat__navbar">
+    <div flex layout="row">
+      <md-button class="chat__form__prev-button md-raised md-accent md-hue-3"
+              ng-click="togglePreviewMessage()"
+      >
+        {{preview ? "Hide" : "Show"}} Preview
+      </md-button>
+    </div>
 
-    <span ng-click="changeVolume()" class="chat__navbar-sound">
-      <span ng-show="volume === 1" class=""></span>
-      <span ng-show="volume === 0" class=""></span>
-      <span ng-show="volume === -1" class=""></span>
-    </span>
-  </div>
+    <div class="chat__navbar-sound" layout="column" layout-align="center center">
+      <md-button ng-click="changeVolume()" class="md-icon-button">
+        <ng-md-icon ng-show="volume === 1" icon="volume_up" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === 0" icon="volume_down" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === -1" icon="volume_mute" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
   <form ng-submit="submit()" 
         class="chat__form"
         name="newMessForm" 

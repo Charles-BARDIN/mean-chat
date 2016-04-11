@@ -1,15 +1,15 @@
 .chat {
   &__navbar{
-    min-height: 25px;
-    margin-bottom: 0px;
 
     &-sound{
-      position: absolute;
-      right: 0px;
-      cursor: pointer;
     }
   }
   &__form {
+    &__prev{
+      &-button{
+        
+      }
+    }
     &__sub {
       position: relative;
       height: 33px;
