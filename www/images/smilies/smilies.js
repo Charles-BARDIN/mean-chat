@@ -26,121 +26,145 @@ import ugeek from './icon_e_ugeek.gif';
 export default [
   { 
     icon: arrow,
-    tags: ['::arrow::']
+    tags: [/::arrow::/g],
+    name: 'arrow'
   },
 
   { 
     icon: cool,
-    tags: ['::cool::']
+    tags: [/::cool::/g, /:8/g, /:-8/g],
+    name: 'cool'
   },
 
   { 
     icon: cry,
-    tags: ['::cry::']
+    tags: [/::cry::/g, /:'\(/g, /:'-\(/g],
+    name: 'cry'
   },
 
   { 
     icon: biggrin,
-    tags: ['::biggrin::']
+    tags: [/::biggrin::/g, /:D/g, /:-D/g],
+    name: 'biggrin'
   },
 
   { 
     icon: confused,
-    tags: ['::confused::']
+    tags: [/::confused::/g, /:S/g, /:-S/g],
+    name: 'confused'
   },
 
   { 
     icon: geek,
-    tags: ['::geek::']
+    tags: [/::geek::/g],
+    name: 'geek'
   },
 
   { 
     icon: wink,
-    tags: ['::wink::']
+    tags: [/::wink::/g, /;\)/g, /;-\)/g],
+    name: 'wink'
   },
 
   { 
     icon: eek,
-    tags: ['::eek::']
+    tags: [/::eek::/g, /oO/g],
+    name: 'eek'
   },
 
   { 
     icon: evil,
-    tags: ['::evil::']
+    tags: [/::evil::/g],
+    name: 'evil'
   },
 
   { 
     icon: exclaim,
-    tags: ['::exclaim::']
+    tags: [/::exclaim::/g],
+    name: 'exclaim'
   },
 
   { 
     icon: idea,
-    tags: ['::idea::']
+    tags: [/::idea::/g],
+    name: 'idea'
   },
 
   { 
     icon: lol,
-    tags: ['::lol::']
+    tags: [/::lol::/g],
+    name: 'lol'
   },
 
   { 
     icon: mad,
-    tags: ['::mad::']
+    tags: [/::mad::/g, /:@/g, /:-@/g],
+    name: 'mad'
   },
 
   { 
     icon: mrgreen,
-    tags: ['::mrgreen::']
+    tags: [/::mrgreen::/g],
+    name: 'mrgreen'
   },
 
   { 
     icon: neutral,
-    tags: ['::neutral::']
+    tags: [/::neutral::/g, /:\|/g, /:-\|/g],
+    name: 'neutral'
   },
 
   { 
     icon: question,
-    tags: ['::question::']
+    tags: [/::question::/g],
+    name: 'question'
   },
 
   {
     icon: razz,
-    tags: ['::razz::']
+    tags: [/::razz::/g],
+    name: 'razz'
   },
 
   {
     icon: redface,
-    tags: ['::redface::']
+    tags: [/::redface::/g],
+    name: 'redface'
   },
 
   {
     icon: rolleyes,
-    tags: ['::rolleyes::']
+    tags: [/::rolleyes::/g],
+    name: 'rolleyes'
   },
 
   {
     icon: twisted,
-    tags: ['::twisted::']
+    tags: [/::twisted::/g],
+    name: 'twisted'
   },
 
   {
     icon: sad,
-    tags: ['::sad::']
+    tags: [/::sad::/g, /:\(/g, /:-\(/g],
+    name: 'sad'
   },
 
   {
     icon: smile,
-    tags: ['::smile::']
+    tags: [/::smile::/g, /:\)/g, /:-\)/g],
+    name: 'smile'
   },
 
   { 
     icon: surprised,
-    tags: ['::surprised::']
+    tags: [/::surprised::/g, /:O/g, /:-O/g],
+    name: 'suprised'
   },
 
   {
     icon: ugeek,
-    tags: ['::ugeek::']
+    tags: [/::ugeek::/g],
+    name: 'ugeek'
   }
 ]

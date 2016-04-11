@@ -6,9 +6,9 @@ export default () => {
     for(let i = 0; i < icons.length; i++){
         item = icons[i];
         for(let j = 0; j < item.tags.length; j++){
-            input = input.replace(new RegExp(item.tags[j], 'g'), 
+            input = input.replace(item.tags[j], 
                                 '<img src="' + item.icon + '" ' + 
-                                'alt="' + item.tags[j].replace(/::/g, '') + '" />');
+                                'alt="' + item.name + '" />');
         }
     }
     return input;
