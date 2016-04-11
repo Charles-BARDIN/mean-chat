@@ -16,9 +16,13 @@ To run the project :
 2. Run `Node server`
 3. Run `webpack-dev-server`
 
+The project will be served from [http://localhost:8080/](http://localhost:8080/)
+
 ## Build project
 To build the project :
 
 1. Go to the project repository
 2. Run `Node server`
 3. Run `webpack --optimize--minimize`
+
+The project will be served from [http://localhost:1000/](http://localhost:1000/);
