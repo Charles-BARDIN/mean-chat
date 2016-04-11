@@ -1,24 +1,24 @@
 <div>
-  <div class="navbar chat__navbar">
-    <button class="btn btn-xs btn-info chat__form__prev-button"
+  <div class="chat__navbar">
+    <button class="chat__form__prev-button"
             ng-click="togglePreviewMessage()"
     >
       {{preview ? "Hide" : "Show"}} Preview
     </button>
 
     <span ng-click="changeVolume()" class="chat__navbar-sound">
-      <span ng-show="volume === 1" class="glyphicon glyphicon-volume-up"></span>
-      <span ng-show="volume === 0" class="glyphicon glyphicon-volume-down"></span>
-      <span ng-show="volume === -1" class="glyphicon glyphicon-volume-off"></span>
+      <span ng-show="volume === 1" class=""></span>
+      <span ng-show="volume === 0" class=""></span>
+      <span ng-show="volume === -1" class=""></span>
     </span>
   </div>
   <form ng-submit="submit()" 
-        class="form-group chat__form"
+        class="chat__form"
         name="newMessForm" 
         ng-disabled="newMessForm.$invalid"
   >
     <input type="text" 
-            class="form-control"
+            class=""
             ng-model="username" 
             placeholder="Username"
             ng-maxlength="nameMaxLength"
@@ -26,7 +26,7 @@
     />
 
     <textarea type="text" 
-            class="form-control"
+            class=""
             ng-model="newMess" 
             placeholder="Chat !" 
             ng-maxlength="maxLength" 
@@ -36,7 +36,7 @@
 
     <div class="chat__form__sub">
       <button type="submit"
-              class="btn btn-success chat__form__sub-button" 
+              class="chat__form__sub-button" 
               ng-disabled="newMessForm.$invalid"
       >
         Submit
@@ -50,7 +50,7 @@
     </div>
   </form>
 
-  <div id="chatBox" class="well">
+  <div id="chatBox" class="">
     <mess-table data="messages"></mess-table>
   </div>
   <chat-sound src-sound="srcSound"></chat-sound>

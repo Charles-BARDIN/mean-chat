@@ -3,7 +3,8 @@ var path = require('path');
 
 module.exports = {
     entry: [
-        'bootstrap-loader',
+        'angular-material',
+        'angular-material/angular-material.scss',
         './www'
     ],
     output: {
@@ -34,7 +35,7 @@ module.exports = {
                    'style',
                     'css',
                     'autoprefixer?browsers=last 3 versions',
-                    'sass?outputStyle=expanded'
+                    'sass?outputStyle=compact'
                 ]
             },
             { 
@@ -51,17 +52,10 @@ module.exports = {
             {
                 test: /\.(woff2?|ttf|eot|svg)$/,
                 loader: 'url?limit=10000'
-            },
-            {
-                test: /bootstrap-sass\/assets\/javascripts?\//,
-                loader: 'imports?jQuery=jquery'
             }
         ]
     },
     plugins: [
-        new webpack.NoErrorsPlugin(),
-        new webpack.ProvidePlugin({
-            jQuery: "jquery"
-        })
+        new webpack.NoErrorsPlugin()
     ]
 };
