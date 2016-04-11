@@ -16,7 +16,7 @@ To run the project :
 2. Run `Node server`
 3. Run `webpack-dev-server`
 
-The project will be served from [http://localhost:8080/](http://localhost:8080/)
+The project will be served from port 8080
 
 ## Build project
 To build the project :
@@ -25,7 +25,7 @@ To build the project :
 2. Run `Node server`
 3. Run `webpack --optimize--minimize`
 
-The project will be served from [http://localhost:1000/](http://localhost:1000/)
+The project will be served from port 1000. You can change it in the [config file](blob/master/server/constants.js).
 
 ## The MIT License (MIT)
 
