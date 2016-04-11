@@ -15,6 +15,8 @@ var message_id = Message.find(function(err,results){
     console.log("Error while getting last id: " + err);
 
   } else {
+    console.log("last id found")
+    console.log(results[0].message_id)
     if(results.length){
       message_id = Number(results[0].message_id) + 1;
     }
