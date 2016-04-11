@@ -25,7 +25,7 @@ To build the project :
 2. Run `Node server`
 3. Run `webpack --optimize--minimize`
 
-The project will be served from port 1000. You can change it in the [config file](blob/master/server/constants.js).
+The project will be served from port 1000. You can change it in the [config file](https://github.com/Charles-BARDIN/mean-chat/blob/master/server/constants.js).
 
 ## The MIT License (MIT)
 
