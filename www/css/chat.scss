@@ -6,6 +6,7 @@
     &-sound{
       position: absolute;
       right: 0px;
+      cursor: pointer;
     }
   }
   &__form {
@@ -31,6 +32,7 @@
     color: gray;
   }
   &__content {
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
   }
 }

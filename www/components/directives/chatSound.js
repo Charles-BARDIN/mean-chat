@@ -32,7 +32,6 @@ export default () => {
             default:
               console.warn('Wrong volume setting');
           };
-          console.log(audioEl.volume);
         })
       }
     },
