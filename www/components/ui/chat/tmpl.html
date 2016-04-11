@@ -1,57 +1,93 @@
 <div>
-  <div class="navbar chat__navbar">
-    <button class="btn btn-xs btn-info chat__form__prev-button"
-            ng-disabled="!newMess"
-            ng-click="togglePreviewMessage()"
-    >
-      {{preview ? "Hide" : "Show"}} Preview
-    </button>
-
-    <span ng-click="changeVolume()" class="chat__navbar-sound">
-      <span ng-show="volume === 1" class="glyphicon glyphicon-volume-up"></span>
-      <span ng-show="volume === 0" class="glyphicon glyphicon-volume-down"></span>
-      <span ng-show="volume === -1" class="glyphicon glyphicon-volume-off"></span>
-    </span>
-  </div>
-  <form ng-submit="submit()" 
-        class="form-group chat__form"
-        name="newMessForm" 
-        ng-disabled="newMessForm.$invalid"
-  >
-    <input type="text" 
-            class="form-control"
-            ng-model="username" 
-            placeholder="Username"
-            ng-maxlength="nameMaxLength"
-            required
-    />
-
-    <textarea type="text" 
-            class="form-control"
-            ng-model="newMess" 
-            placeholder="Chat !" 
-            ng-maxlength="maxLength" 
-            required 
-    >
-    </textarea>
-
-    <div class="chat__form__sub">
-      <button type="submit"
-              class="btn btn-success chat__form__sub-button" 
-              ng-disabled="newMessForm.$invalid"
-      >
-        Submit
-      </button>
+  <md-toolbar layout="row" layout-align="space-between center" class="chat__navbar">
+    <div flex layout="row">
+      
     </div>
 
-    <div id="preview" ng-if="newMess && preview">
-      <h3>Preview</h3>
-      <div ng-bind-html="newMess | messagePreview">
+    <div class="chat__navbar-sound" layout="column" layout-align="center center">
+      <md-button ng-click="changeVolume()" class="md-icon-button" aria-label="change volume">
+        <ng-md-icon ng-show="volume === 1" icon="volume_up" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === 0" icon="volume_down" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === -1" icon="volume_mute" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content layout-padding>
+    <form ng-submit="submit()" 
+          class="chat__form"
+          name="newMessForm" 
+          ng-disabled="newMessForm.$invalid"
+          layout="column"
+    >
+      <md-input-container>
+        <label>Username</label>
+
+        <input type="text" 
+                class=""
+                ng-model="username" 
+                name="username"
+                aria-label="Username"
+                ng-maxlength="nameMaxLength"
+                required
+        />
+
+        <div ng-messages="newMessForm.username.$error" multiple md-auto-hide="true">
+          <div ng-message="required">
+            You must enter an username.
+          </div>
+          <div ng-message="maxlength">
+            The max size for username is {{nameMaxLength}}.
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container>
+        <label>Message</label>
+
+        <textarea type="text" 
+                class=""
+                ng-model="newMess" 
+                name="newMess"
+                aria-label="message" 
+                ng-maxlength="maxLength" 
+                required 
+        >
+        </textarea>
+
+        <div ng-messages="newMessForm.newMess.$error" multiple md-auto-hide="true">
+          <div ng-message="required">
+            You must enter an message.
+          </div>
+          <div ng-message="maxlength">
+            The max size for the message is {{maxLength}}.
+          </div>
+        </div>
+      </md-input-container>
+
+      <div layout="row" layout-align="space-between center">
+        <md-button class="chat__form__prev-button md-raised md-accent md-hue-3"
+                ng-click="togglePreviewMessage()"
+        >
+          {{preview ? "Hide" : "Show"}} Preview
+        </md-button>
+
+        <md-button type="submit"
+                class="md-raised md-primary" 
+                ng-disabled="newMessForm.$invalid"
+        >
+          Submit
+        </md-button>
       </div>
-    </div>
-  </form>
+    </form>
 
-  <div id="chatBox" class="well">
+    <md-content id="preview" ng-if="newMess && preview">
+        <h3>Preview</h3>
+        <div ng-bind-html="newMess | messagePreview | smiley">
+        </div>
+    </md-content>
+  </md-content>
+
+  <div id="chatBox" class="">
     <mess-table data="messages"></mess-table>
   </div>
   <chat-sound src-sound="srcSound"></chat-sound>

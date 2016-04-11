@@ -15,6 +15,7 @@ import MessagesService from 'components/services/MessagesService';
 
 // Filters
 import messagePreview from 'components/filters/messagePreview';
+import smiley from 'components/filters/smiley';
 
 const app = angular.module('app', [uiRouter]);
 
@@ -31,6 +32,7 @@ app.factory('MessagesService', MessagesService);
 
 // Filters
 app.filter('messagePreview', messagePreview);
+app.filter('smiley', smiley);
 
 export default app;
 

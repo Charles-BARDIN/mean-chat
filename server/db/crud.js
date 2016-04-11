@@ -10,12 +10,16 @@ var parser = require('./../bbcode/bbcode');
 var MESSAGE_SIZE_LIMIT = config.MESSAGE_SIZE_LIMIT;
 var USERNAME_SIZE_LIMIT = config.USERNAME_SIZE_LIMIT;
 
-var message_id = Message.find(function(err,results){
+var message_id = 0;
+
+Message.find(function(err,results){
   if(err){
     console.log("Error while getting last id: " + err);
 
   } else {
-    message_id = Number(results[0].message_id) + 1;
+    if(results.length){
+      message_id = Number(results[0].message_id) + 1;
+    }
   }
 })
 .sort({$natural: -1})

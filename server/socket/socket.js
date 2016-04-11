@@ -20,7 +20,7 @@ module.exports.initSocket = function(server){
       db.addMessage(message, function(err, results){
         if(err){
           socket.emit('messageResponse', {
-            fault: fault
+            fault: err
           })
         } else {
           socket.emit('messageResponse', {

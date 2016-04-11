@@ -1,15 +1,15 @@
 .chat {
   &__navbar{
-    min-height: 25px;
-    margin-bottom: 0px;
 
     &-sound{
-      position: absolute;
-      right: 0px;
-      cursor: pointer;
     }
   }
   &__form {
+    &__prev{
+      &-button{
+        
+      }
+    }
     &__sub {
       position: relative;
       height: 33px;
@@ -27,9 +27,9 @@
     font-size: 16px;
   }
   &__time {
-    font-size: 12px;
     font-style: italic;
     color: gray;
+    padding-top: 0px !important;
   }
   &__content {
     overflow-y: hidden;
