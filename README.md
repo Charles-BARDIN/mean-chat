@@ -25,4 +25,4 @@ To build the project :
 2. Run `Node server`
 3. Run `webpack --optimize--minimize`
 
-The project will be served from [http://localhost:1000/](http://localhost:1000/);
+The project will be served from [http://localhost:1000/](http://localhost:1000/)
