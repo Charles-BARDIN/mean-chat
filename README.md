@@ -16,12 +16,12 @@ To run the project :
 2. Run `Node server`
 3. Run `webpack-dev-server`
 
-The project will be served from port 8080
+The project will be served from port 8080.
 
 ## Release project
 To build the project :
 
-If `webpack` is not in your path, run `npm install -g webpack`
+If `webpack` is not in your path, run `npm install -g webpack`.
 
 1. Go to the project repository
 2. Run `Node server`
