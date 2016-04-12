@@ -39,7 +39,7 @@ module.exports.getMessageCollection = function(){
 };
 
 module.exports.loadFromDB = function(callback){
-  messFromDb = db.findAllMessages(config.CACHE_LIMIT, function(err, results){
+  db.findAllMessages(config.CACHE_LIMIT, function(err, results){
     if(results){
       for(var i = 0; i < results.length; i++){
         addMessage(results[results.length - (i + 1)]);

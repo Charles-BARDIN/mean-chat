@@ -52,7 +52,9 @@ module.exports.initSocket = function(server){
     socket.on('disconnect', function() {
         console.log(new Date() + ': client disconnected of socket ' + socket.id);
         userConnected--;
+
         socket.broadcast.emit('userDisconnect');
+        console.log(new Date() + ': client disconnected of socket ' + socket.id + ' broadcasted');
     })
   });
 
