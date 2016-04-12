@@ -7,10 +7,6 @@ var socketIo = require('./../socket/socket');
 var entities = new Entities();
 var parser = require('./../bbcode/bbcode');
 
-var CACHE_LIMIT = config.CACHE_LIMIT;
-var MESSAGE_SIZE_LIMIT = config.MESSAGE_SIZE_LIMIT;
-var USERNAME_SIZE_LIMIT = config.USERNAME_SIZE_LIMIT;
-
 var messageCollection = [];
 var message_id = 0;
 
@@ -24,7 +20,7 @@ var addMessage = function(message, callback){
 
   messageCollection.unshift(messageToSend);
 
-  if(messageCollection.length > CACHE_LIMIT){
+  if(messageCollection.length > config.CACHE_LIMIT){
     messageCollection.pop();
   }
 
@@ -41,7 +37,7 @@ module.exports.getMessageCollection = function(){
 };
 
 module.exports.loadFromDB = function(callback){
-  messFromDb = db.findAllMessages(CACHE_LIMIT, function(err, results){
+  messFromDb = db.findAllMessages(config.CACHE_LIMIT, function(err, results){
     if(results){
       console.log('Messages recovered from database...')
       for(var i = 0; i < results.length; i++){
@@ -71,13 +67,13 @@ module.exports.checkAndFormatMessage = function(message, callback){
     console.log(fault);
     callback(fault, null);
 
-  } else if (message.content.length > MESSAGE_SIZE_LIMIT){
-    var fault = "Message size too long: " + message.content.length + ", need less than " + MESSAGE_SIZE_LIMIT;
+  } else if (message.content.length > config.MESSAGE_SIZE_LIMIT){
+    var fault = "Message size too long: " + message.content.length + ", need less than " + config.MESSAGE_SIZE_LIMIT;
 
     console.log(fault);
     callback(fault, null)
-  }else if(message.username && message.username.length > USERNAME_SIZE_LIMIT){
-    var fault = "Username size too long: " + username.content.length + ", need less than " + USERNAME_SIZE_LIMIT;
+  }else if(message.username && message.username.length > config.USERNAME_SIZE_LIMIT){
+    var fault = "Username size too long: " + username.content.length + ", need less than " + config.USERNAME_SIZE_LIMIT;
 
     console.log(fault);
     callback(fault, null);
@@ -88,11 +84,14 @@ module.exports.checkAndFormatMessage = function(message, callback){
       message.username =  message.username.substring(0,1).toUpperCase() + 
                           message.username.substring(1);
     } else {
-      message.username = "Anonymous"
+      message.username = config.DEFAULT_USERNAME;
     }
 
     // html in message.content encoding THEN BBcode to html
     message.content = parser.parseString(message.content);
+
+    // Smileys
+    message.content = message.content.replace(/&lt;(img src="[a-f0-9]{32}.gif" alt="[a-z]+" \/)&gt;/g, '<$1>');
 
     // content is encoded, except for the created html, we encode it again
     

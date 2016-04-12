@@ -7,15 +7,16 @@ module.exports.initSocket = function(server){
   var io = require('socket.io')(server);
 
   io.sockets.on('connection', function (socket) {
-    var mustAddAUser = true;
-
-    console.log('Client connected to socket: ' + socket.id);
+    console.log('Client connected to socket ' + socket.id);
+    userConnected++;
 
     // Emit connexion success and message table
     socket.emit('connexionResponse', {
         valid: true,
-        connectedUsers: userConnected + 1
+        connectedUsers: userConnected
     });
+
+    socket.broadcast.emit('userConnect');
 
     socket.emit('messageRecovery', {
         messTable: messageCache.getMessageCollection()
@@ -23,17 +24,6 @@ module.exports.initSocket = function(server){
 
     // Set events
     socket.on('message', function (message) {
-      if(mustAddAUser){
-        mustAddAUser = false;
-        userConnected++;
-
-        socket.broadcast.emit('userConnect');
-
-        socket.on('disconnect', function(){
-          socket.broadcast.emit('userDisconnect');
-          userConnected--;
-        });
-      }
       db.addMessage(message, function(err, results){
         if(err){
           socket.emit('messageResponse', {
@@ -54,6 +44,8 @@ module.exports.initSocket = function(server){
 
     socket.on('disconnect', function() {
         console.log('Client disconnected to socket: ' + socket.id);
+        userConnected--;
+        socket.broadcast.emit('userDisconnect');
     })
   });
 

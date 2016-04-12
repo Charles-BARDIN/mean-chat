@@ -24,7 +24,7 @@ export default () => {
                 '<span class="md-subhead mess__time">{{mess.time | date:\'medium\'}}</span>' +
               '</md-card-title-text>' +
             '</md-card-title>' +
-            '<md-card-content ng-bind-html="mess.content | smiley">' + 
+            '<md-card-content ng-bind-html="mess.content">' + 
             '</md-card-content>' +
           '</md-card>' + 
         '</md-list-item>' +

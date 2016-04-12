@@ -4,8 +4,6 @@ export default ['$window', 'TitleService', '$q', '$rootScope', '$filter', ($wind
   let messagesCollection = [];
   let isFocused = true;
 
-  const MAX_MESSAGE_DISPLAYED = config.MAX_MESSAGE_DISPLAYED;
-
   $window.onfocus = () => {
     isFocused = true;
 
@@ -23,8 +21,8 @@ export default ['$window', 'TitleService', '$q', '$rootScope', '$filter', ($wind
   const handleRecovery = (json, promise) => {
     if(!json.fault){
       messagesCollection = json.messTable;
-      if(messagesCollection.length > MAX_MESSAGE_DISPLAYED){
-        messagesCollection.splice(0, MAX_MESSAGE_DISPLAYED);
+      if(messagesCollection.length > config.MAX_MESSAGE_DISPLAYED){
+        messagesCollection.splice(0, config.MAX_MESSAGE_DISPLAYED);
       }
       promise.resolve();
     }
@@ -39,7 +37,7 @@ export default ['$window', 'TitleService', '$q', '$rootScope', '$filter', ($wind
       console.log('Failed to deliver the message: ' + json.fault);
     } else {
       messagesCollection.unshift(json.message);
-      if(messagesCollection.length > MAX_MESSAGE_DISPLAYED)
+      if(messagesCollection.length > config.MAX_MESSAGE_DISPLAYED)
         messagesCollection.pop();
 
       // TODO : This has been added to update the view when recieving a confirmation
