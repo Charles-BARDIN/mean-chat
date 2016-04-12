@@ -27,11 +27,9 @@ module.exports.initSocket = function(server){
         mustAddAUser = false;
         userConnected++;
 
-        console.log('User connect notified to FE')
         socket.broadcast.emit('userConnect');
 
         socket.on('disconnect', function(){
-          console.log('User disconnect notified to FE')
           socket.broadcast.emit('userDisconnect');
           userConnected--;
         });

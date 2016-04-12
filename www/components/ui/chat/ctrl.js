@@ -10,7 +10,6 @@ export default ['$scope', 'MessagesService', 'SocketService', 'UserService',
       .then(() => {
         $scope.messages = MessagesService.getMessages();
         $scope.usersConnected = UserService.getConnectedUser();
-        console.log($scope.usersConnected)
       });
 
     $scope.maxLength = MESSAGE_SIZE_LIMIT;
