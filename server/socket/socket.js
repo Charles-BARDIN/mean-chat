@@ -39,6 +39,7 @@ module.exports.initSocket = function(server){
           socket.emit('messageResponse', {
             fault: err
           })
+          
         } else {
           socket.emit('messageResponse', {
             message: results

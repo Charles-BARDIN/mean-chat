@@ -30,15 +30,11 @@
                 name="username"
                 aria-label="Username"
                 ng-maxlength="nameMaxLength"
-                required
         />
 
         <div ng-messages="newMessForm.username.$error" multiple md-auto-hide="true">
-          <div ng-message="required">
-            You must enter an username.
-          </div>
           <div ng-message="maxlength">
-            The max size for username is {{nameMaxLength}}.
+            The username must be composed of less than {{nameMaxLength}} characters.
           </div>
         </div>
       </md-input-container>

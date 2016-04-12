@@ -76,7 +76,7 @@ module.exports.checkAndFormatMessage = function(message, callback){
 
     console.log(fault);
     callback(fault, null)
-  }else if(message.username.length > USERNAME_SIZE_LIMIT){
+  }else if(message.username && message.username.length > USERNAME_SIZE_LIMIT){
     var fault = "Username size too long: " + username.content.length + ", need less than " + USERNAME_SIZE_LIMIT;
 
     console.log(fault);
