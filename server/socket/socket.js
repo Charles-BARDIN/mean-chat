@@ -56,5 +56,5 @@ module.exports.initSocket = function(server){
     })
   });
 
-  console.log(new Date() + ': socket initialized...')
+  console.log(new Date() + ': socket initialized');
 };

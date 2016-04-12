@@ -44,14 +44,14 @@ module.exports.loadFromDB = function(callback){
       for(var i = 0; i < results.length; i++){
         addMessage(results[results.length - (i + 1)]);
       }
-      console.log(new Date() + ': messages recovered from database...')
+      console.log(new Date() + ': ' + results.length + ' message(s) recovered from database')
       
       db.getLastMessageID(function(err, result){
         if(!err){
           if(result){
             message_id = result;
           }
-          console.log(new Date() + ': last message ID set...')
+          console.log(new Date() + ': next message ID set to ' + message_id);
 
           if(callback){
             callback();
