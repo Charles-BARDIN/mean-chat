@@ -13,6 +13,7 @@ import TitleService from 'components/services/TitleService';
 import SocketService from 'components/services/SocketService';
 import MessagesService from 'components/services/MessagesService';
 import UserService from 'components/services/UserService';
+import UserEventService from 'components/services/UserEventService';
 import WindowService from 'components/services/WindowService';
 import MessageEventService from 'components/services/MessageEventService';
 
@@ -36,6 +37,7 @@ app.factory('TitleService', TitleService);
 app.factory('SocketService', SocketService);
 app.factory('MessagesService', MessagesService);
 app.factory('UserService', UserService);
+app.factory('UserEventService', UserEventService);
 app.factory('WindowService', WindowService);
 app.factory('MessageEventService', MessageEventService);
 

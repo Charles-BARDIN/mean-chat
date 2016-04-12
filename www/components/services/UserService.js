@@ -1,8 +1,9 @@
-export default [() => {
+export default ['UserEventService', (UserEventService) => {
   let userConnected = {number: 1};
 
   const addConnectedUser = () => {
     userConnected.number++;
+    UserEventService.emitNewUserConnection();
   };
 
   const removeConnectedUser = () => {

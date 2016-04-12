@@ -1,4 +1,5 @@
 import newMessageSound from 'sounds/chat/new_message.mp3';
+import newConnectSound from 'sounds/chat/new_connect.mp3';
 import config from 'components/constants';
 
 export default ['$scope', 'MessagesService', 'SocketService', 'UserService', '$filter',
@@ -16,7 +17,8 @@ export default ['$scope', 'MessagesService', 'SocketService', 'UserService', '$f
     $scope.nameMaxLength = USERNAME_SIZE_LIMIT
     $scope.preview = false;
     $scope.volume = 1;
-    $scope.srcSound = newMessageSound;
+    $scope.messageSound = newMessageSound;
+    $scope.connectSound = newConnectSound;
 
     $scope.changeVolume = () => {
       $scope.volume += 0.5;

@@ -4,19 +4,27 @@ export default () => {
     transclude: true,
     replace: true,
     scope: {
-      srcSound: '=srcSound', 
+      connectSound: '=connectSound', 
+      messageSound: '=messageSound', 
       volume: '=volume', 
       trigger: '@trigger'
     },
-    controller: [ '$scope', '$element', 'MessageEventService', ($scope, $element, MessageEventService) => {
-      let el = $element[0];
-
+    controller: [ '$scope', '$element', 'MessageEventService', 'UserEventService', 
+    ($scope, $element, MessageEventService, UserEventService) => {
+      var els = $element.children();
       $scope.$watch('volume', () => {
-        el.volume = $scope.volume;
+        for(let i = 0; i < els.length; i++)
+          els[i].volume = $scope.volume;
       });
 
-      MessageEventService.listenToNewMessage(() => { el.play(); });
+      MessageEventService.listenToNewMessage(() => { els[0].play(); });
+      UserEventService.listenToNewUserConnection(() => { els[1].play(); });
+
     }],
-    template: '<audio id="chatSound" style="display: none" ng-src="{{srcSound}}"></audio>'
+    template: '' + 
+    '<div id="chatSound" style="display: none">' + 
+      '<audio ng-src="{{messageSound}}"></audio>' + 
+      '<audio ng-src="{{connectSound}}"></audio>' + 
+    '</div>'
   };
 }
