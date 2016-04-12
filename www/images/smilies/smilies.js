@@ -32,7 +32,7 @@ export default [
 
   { 
     icon: cool,
-    tags: [/::cool::/g, /:8/g, /:-8/g],
+    tags: [/::cool::/g, /8\)/g, /8-\)/g],
     name: 'cool'
   },
 
