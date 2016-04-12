@@ -31,8 +31,9 @@ app.all('/*', function(req, res){
 require('./server/caches/message')
 .loadFromDB(function(){
     server.listen(PORT, function(){
-        console.log("Server initialized with success.");
-        console.log("Listening on " + PORT + "...")
+        var now = new Date();
+        console.log(now + ": server initialized with success !");
+        console.log(now + ": listening on " + PORT + "...");
     });
 });
 

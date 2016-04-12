@@ -1,8 +1,8 @@
 import newMessageSound from 'sounds/chat/new_message.mp3';
 import config from 'components/constants';
 
-export default ['$scope', 'MessagesService', 'SocketService', 'UserService',
-  ($scope, MessagesService, SocketService, UserService) => {
+export default ['$scope', 'MessagesService', 'SocketService', 'UserService', '$filter',
+  ($scope, MessagesService, SocketService, UserService, $filter) => {
     const MESSAGE_SIZE_LIMIT = config.MESSAGE_SIZE_LIMIT;
     const USERNAME_SIZE_LIMIT = config.USERNAME_SIZE_LIMIT;
 
@@ -42,7 +42,7 @@ export default ['$scope', 'MessagesService', 'SocketService', 'UserService',
           return;
         }
 
-        SocketService.sendMessage({username: $scope.username, content: $scope.newMess})
+        SocketService.sendMessage({username: $scope.username, content: $filter('smiley')($scope.newMess)});
         $scope.newMess = "";
       }
     }
