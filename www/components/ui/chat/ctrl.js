@@ -1,14 +1,16 @@
 import newMessageSound from 'sounds/chat/new_message.mp3';
 import config from 'components/constants';
 
-export default ['$scope', 'MessagesService', 
-  ($scope, MessagesService) => {
+export default ['$scope', 'MessagesService', 'SocketService', 'UserService',
+  ($scope, MessagesService, SocketService, UserService) => {
     const MESSAGE_SIZE_LIMIT = config.MESSAGE_SIZE_LIMIT;
     const USERNAME_SIZE_LIMIT = config.USERNAME_SIZE_LIMIT;
 
-    MessagesService.recoverAndSetSocket()
+    SocketService.connectToSocket()
       .then(() => {
         $scope.messages = MessagesService.getMessages();
+        $scope.usersConnected = UserService.getConnectedUser();
+        console.log($scope.usersConnected)
       });
 
     $scope.maxLength = MESSAGE_SIZE_LIMIT;
@@ -30,19 +32,18 @@ export default ['$scope', 'MessagesService',
     }
 
     $scope.submit = () => {
-      if($scope.newMess && $scope.username) {
+      if($scope.newMess) {
         if($scope.newMess > MESSAGE_SIZE_LIMIT){
           console.log("Message too long");
           return;
         }
 
-        if($scope.username > USERNAME_SIZE_LIMIT){
+        if($scope.username && $scope.username > USERNAME_SIZE_LIMIT){
           console.log("Username too long")
           return;
         }
 
-        MessagesService.sendMessage({username: $scope.username, content: $scope.newMess})
-
+        SocketService.sendMessage({username: $scope.username, content: $scope.newMess})
         $scope.newMess = "";
       }
     }

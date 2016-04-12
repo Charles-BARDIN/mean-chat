@@ -1,7 +1,9 @@
 <div>
   <md-toolbar layout="row" layout-align="space-between center" class="chat__navbar">
-    <div flex layout="row">
-      
+    <div layout="row" layout-align="center center center">
+      <div ng-if="usersConnected" layout="row" layout-align="space-between center" layout-padding>
+        <ng-md-icon icon="face" style="fill: white"></ng-md-icon><span>{{usersConnected.number}}</span>
+      </div>
     </div>
 
     <div class="chat__navbar-sound" layout="column" layout-align="center center">

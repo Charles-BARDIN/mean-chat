@@ -8,11 +8,13 @@ module.exports.initSocket = function(server){
 
   io.sockets.on('connection', function (socket) {
     var mustAddAUser = true;
+
     console.log('Client connected to socket: ' + socket.id);
 
     // Emit connexion success and message table
     socket.emit('connexionResponse', {
-        valid: true
+        valid: true,
+        connectedUsers: userConnected + 1
     });
 
     socket.emit('messageRecovery', {
@@ -25,7 +27,12 @@ module.exports.initSocket = function(server){
         mustAddAUser = false;
         userConnected++;
 
+        console.log('User connect notified to FE')
+        socket.broadcast.emit('userConnect');
+
         socket.on('disconnect', function(){
+          console.log('User disconnect notified to FE')
+          socket.broadcast.emit('userDisconnect');
           userConnected--;
         });
       }

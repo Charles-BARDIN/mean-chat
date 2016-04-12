@@ -12,6 +12,7 @@ import messTable from 'components/directives/messTable';
 import TitleService from 'components/services/TitleService';
 import SocketService from 'components/services/SocketService';
 import MessagesService from 'components/services/MessagesService';
+import UserService from 'components/services/UserService';
 
 // Filters
 import messagePreview from 'components/filters/messagePreview';
@@ -29,6 +30,7 @@ app.directive('messTable', messTable);
 app.factory('TitleService', TitleService);
 app.factory('SocketService', SocketService);
 app.factory('MessagesService', MessagesService);
+app.factory('UserService', UserService);
 
 // Filters
 app.filter('messagePreview', messagePreview);
