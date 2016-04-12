@@ -1,5 +1,5 @@
 # mean-chat
-This project is a small chat developped with MongoDB, Express.js, AngularJS and Node.js.
+This project is a small chat developped with MongoDB, Express.js, AngularJS and Node.js 4.4.2.
 
 ## Prerequisites
 To use the project, you must install [Node](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.org/).
@@ -18,8 +18,10 @@ To run the project :
 
 The project will be served from port 8080
 
-## Build project
+## Release project
 To build the project :
+
+If `webpack` is not in your path, run `npm install -g webpack`
 
 1. Go to the project repository
 2. Run `Node server`
