@@ -1,17 +1,12 @@
-export default ['$rootScope', ($rootScope) => {
+export default [() => {
   let userConnected = {number: 1};
 
   const addConnectedUser = () => {
-    
-    $rootScope.$apply(() => {
-      userConnected.number++;
-    })
+    userConnected.number++;
   };
 
   const removeConnectedUser = () => {
-    $rootScope.$apply(() => {
-      userConnected.number--;
-    })
+    userConnected.number--;
   };
 
   const getConnectedUser = () => {

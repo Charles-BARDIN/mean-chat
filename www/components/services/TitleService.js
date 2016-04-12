@@ -1,6 +1,6 @@
 import config from 'components/constants';
 
-export default ['$rootScope', '$interval', '$timeout', ($rootScope, $interval, $timeout) => {
+export default ['$rootScope', '$interval', '$timeout', 'WindowService', ($rootScope, $interval, $timeout, WindowService) => {
   let interval;
   let currentState;
 
@@ -9,6 +9,7 @@ export default ['$rootScope', '$interval', '$timeout', ($rootScope, $interval, $
     currentState = toState;
   };
 
+  // TODO: set title depending on view
   onStateChangeSuccess(null, {title: 'Chat'});
 
   $rootScope.$on('$stateChangeSuccess', onStateChangeSuccess);
@@ -16,25 +17,24 @@ export default ['$rootScope', '$interval', '$timeout', ($rootScope, $interval, $
   const newMessage = () => {
     if(!interval){
       interval = $interval(() => {
-        $timeout(() => {
-          $rootScope.pageTitle = currentState.title;
-        }, config.newMessage.hide.TIME);
-        
-        $rootScope.pageTitle = (`${currentState.title} - ${config.newMessage.show.TEXT}`);
-      }, config.newMessage.show.TIME + config.newMessage.hide.TIME);
-    }
-  };
+          $timeout(() => {
+            $rootScope.pageTitle = currentState.title;
+          }, config.newMessage.hide.TIME);
+          
+          $rootScope.pageTitle = (`${currentState.title} - ${config.newMessage.show.TEXT}`);
+        }, 
+        config.newMessage.show.TIME + config.newMessage.hide.TIME
+      );
 
-  const stopInterval = () => {
-    if(interval){
-      $interval.cancel(interval);
-      interval = null;
-      $rootScope.pageTitle = currentState.title;
+      WindowService.setFocusEvent( function() {
+        $interval.cancel(interval);
+        interval = null;
+        $rootScope.pageTitle = currentState.title;
+      }, true);
     }
   };
 
   return {
-    stopInterval: stopInterval,
     newMessage: newMessage
   }
 }];

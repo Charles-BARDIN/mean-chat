@@ -1,4 +1,4 @@
-export default ['MessagesService', 'UserService', '$q', (MessagesService, UserService, $q) => {
+export default ['MessagesService', 'UserService', '$q', '$rootScope', (MessagesService, UserService, $q, $rootScope) => {
   let socket;
 
   const connectToSocket = () => {
@@ -7,30 +7,41 @@ export default ['MessagesService', 'UserService', '$q', (MessagesService, UserSe
 
       // Set listener
       socket.on('messageRecovery', json => {
+        // Actually resolve/reject promise => no need to $rootScope.$apply
         MessagesService.handleRecovery(json, {resolve: resolve, reject: reject});
       });
 
       socket.on('messageResponse', json => {
-        MessagesService.handleMessageResponse(json);
+        $rootScope.$evalAsync(
+          MessagesService.handleMessageResponse(json)
+        );
       });
 
       socket.on('newMessage', json => {
-        MessagesService.handleNewMessage(json);
+        $rootScope.$evalAsync( () => {
+          MessagesService.handleNewMessage(json);
+        });
       });
 
       socket.on('connexionResponse', json => {
         if(json.valid){
           console.log('Connected to socket');
-          UserService.setConnectedUsers(json.connectedUsers);
+          $rootScope.$evalAsync(
+            UserService.setConnectedUsers(json.connectedUsers)
+          );
         }
       });
 
       socket.on('userConnect', json => {
-        UserService.addConnectedUser();
+        $rootScope.$evalAsync(
+          UserService.addConnectedUser()
+        );
       })
 
       socket.on('userDisconnect', json => {
-        UserService.removeConnectedUser();
+        $rootScope.$evalAsync(
+          UserService.removeConnectedUser()
+        );
       })
     })
   }

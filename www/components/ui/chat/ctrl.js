@@ -19,11 +19,9 @@ export default ['$scope', 'MessagesService', 'SocketService', 'UserService', '$f
     $scope.srcSound = newMessageSound;
 
     $scope.changeVolume = () => {
-      $scope.volume++;
+      $scope.volume += 0.5;
       if($scope.volume > 1)
-        $scope.volume = -1;
-
-      $scope.$broadcast('volumeChange', $scope.volume);
+        $scope.volume = 0;
     };
 
     $scope.togglePreviewMessage = () => {

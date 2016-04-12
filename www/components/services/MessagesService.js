@@ -1,18 +1,9 @@
 import config from 'components/constants';
 
-export default ['$window', 'TitleService', '$q', '$rootScope', '$filter', ($window, TitleService, $q, $rootScope, $filter) => {
+export default ['WindowService', 'TitleService', '$q', '$filter', 'MessageEventService',
+(WindowService, TitleService, $q, $filter, MessageEventService) => {
   let messagesCollection = [];
-  let isFocused = true;
-
-  $window.onfocus = () => {
-    isFocused = true;
-
-    TitleService.stopInterval();
-  };
-
-  $window.onblur = () => {
-    isFocused = false;
-  };
+  let focus = WindowService.getFocus();
 
   const getMessages = () => {
     return messagesCollection;
@@ -39,21 +30,21 @@ export default ['$window', 'TitleService', '$q', '$rootScope', '$filter', ($wind
       messagesCollection.unshift(json.message);
       if(messagesCollection.length > config.MAX_MESSAGE_DISPLAYED)
         messagesCollection.pop();
-
-      // TODO : This has been added to update the view when recieving a confirmation
-      // Need to find another way
-      $rootScope.$digest();
     }
   };
 
   const handleNewMessage = (json) => {
     if(!json.fault){
-      if(!isFocused){
+      if(!focus.value){
         TitleService.newMessage();
       }
 
-      // Sending newMessage event to the chat-sound directive and the message ng-repeat
-      $rootScope.$broadcast('newMessage', {message: json.message});
+      messagesCollection.unshift(json.message);
+      if(messagesCollection.length > config.MAX_MESSAGE_DISPLAYED){
+        messagesCollection.splice(0, config.MAX_MESSAGE_DISPLAYED);
+      }
+
+      MessageEventService.emitNewMessage();
     }
   };
 
@@ -61,7 +52,6 @@ export default ['$window', 'TitleService', '$q', '$rootScope', '$filter', ($wind
     getMessages: getMessages,
     handleNewMessage: handleNewMessage,
     handleMessageResponse: handleMessageResponse,
-    handleRecovery: handleRecovery,
-    getFocus: () => {return isFocused;}
+    handleRecovery: handleRecovery
   }
 }];

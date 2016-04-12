@@ -6,13 +6,6 @@ export default () => {
     scope: {
       data: '='
     },
-    controller: ['$scope', $scope => {
-      $scope.$on('newMessage', (ev, message) => {
-        $scope.$apply( () => {
-          $scope.data.unshift(message.message);
-        });
-      })
-    }],
     template: '' + 
     '<md-content>' +
       '<md-list>' + 

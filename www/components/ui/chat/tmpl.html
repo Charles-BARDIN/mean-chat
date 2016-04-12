@@ -9,8 +9,8 @@
     <div class="chat__navbar-sound" layout="column" layout-align="center center">
       <md-button ng-click="changeVolume()" class="md-icon-button" aria-label="change volume">
         <ng-md-icon ng-show="volume === 1" icon="volume_up" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
-        <ng-md-icon ng-show="volume === 0" icon="volume_down" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
-        <ng-md-icon ng-show="volume === -1" icon="volume_mute" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === 0.5" icon="volume_down" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === 0" icon="volume_mute" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
       </md-button>
     </div>
   </md-toolbar>
@@ -88,5 +88,5 @@
   <div id="chatBox" class="">
     <mess-table data="messages"></mess-table>
   </div>
-  <chat-sound src-sound="srcSound"></chat-sound>
+  <chat-sound src-sound="srcSound" volume="volume" trigger="newMessage"></chat-sound>
 </div>
