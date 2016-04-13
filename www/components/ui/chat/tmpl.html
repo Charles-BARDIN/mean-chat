@@ -9,13 +9,14 @@
     <div class="chat__navbar-sound" layout="column" layout-align="center center">
       <md-button ng-click="changeVolume()" class="md-icon-button" aria-label="change volume">
         <ng-md-icon ng-show="volume === 1" icon="volume_up" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
-        <ng-md-icon ng-show="volume === 0" icon="volume_down" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
-        <ng-md-icon ng-show="volume === -1" icon="volume_mute" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === 0.5" icon="volume_down" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
+        <ng-md-icon ng-show="volume === 0" icon="volume_mute" layout="row" layout-align="center center" style="fill: white"></ng-md-icon>
       </md-button>
     </div>
   </md-toolbar>
   <md-content layout-padding>
     <form ng-submit="submit()" 
+          novalidate
           class="chat__form"
           name="newMessForm" 
           ng-disabled="newMessForm.$invalid"
@@ -25,11 +26,11 @@
         <label>Username</label>
 
         <input type="text" 
-                class=""
-                ng-model="username" 
-                name="username"
-                aria-label="Username"
-                ng-maxlength="nameMaxLength"
+              ng-model="username" 
+              name="username"
+              aria-label="Username"
+              ng-maxlength="nameMaxLength"
+              set-touched-on-focus
         />
 
         <div ng-messages="newMessForm.username.$error" multiple md-auto-hide="true">
@@ -42,13 +43,15 @@
       <md-input-container>
         <label>Message</label>
 
-        <textarea type="text" 
-                class=""
-                ng-model="newMess" 
+        <textarea ng-model="newMess" 
                 name="newMess"
                 aria-label="message" 
-                ng-maxlength="maxLength" 
+                ng-maxlength="maxLength"
+                submit="submit()"
+                ng-focus="setTextTouched()"
                 required 
+                special-enter
+                set-touched-on-focus
         >
         </textarea>
 
@@ -88,5 +91,5 @@
   <div id="chatBox" class="">
     <mess-table data="messages"></mess-table>
   </div>
-  <chat-sound src-sound="srcSound"></chat-sound>
+  <chat-sound message-sound="messageSound" connect-sound="connectSound" volume="volume" trigger="newMessage"></chat-sound>
 </div>

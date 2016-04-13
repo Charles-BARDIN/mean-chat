@@ -4,37 +4,27 @@ export default () => {
     transclude: true,
     replace: true,
     scope: {
-      srcSound: '='
+      connectSound: '=connectSound', 
+      messageSound: '=messageSound', 
+      volume: '=volume', 
+      trigger: '@trigger'
     },
-    controller: [ '$scope', $scope => {
+    controller: [ '$scope', '$element', 'MessageEventService', 'UserEventService', 
+    ($scope, $element, MessageEventService, UserEventService) => {
+      var els = $element.children();
+      $scope.$watch('volume', () => {
+        for(let i = 0; i < els.length; i++)
+          els[i].volume = $scope.volume;
+      });
+
+      MessageEventService.listenToNewMessage(() => { els[0].play(); });
+      UserEventService.listenToNewUserConnection(() => { els[1].play(); });
+
     }],
-    link: {
-      pre: (scope, element, attrs) => {
-        const audioEl = element[0];
-        scope.audioEl = audioEl;
-
-        scope.$on('newMessage', (ev, message) => {
-          if(audioEl.volume)
-            audioEl.play();
-        })
-
-        scope.$on('volumeChange', (ev, volume) => {
-          switch(volume){
-            case -1:
-              audioEl.volume = 0;
-              break;
-            case 0:
-              audioEl.volume = 0.4;
-              break;
-            case 1:
-              audioEl.volume = 1;
-              break;
-            default:
-              console.warn('Wrong volume setting');
-          };
-        })
-      }
-    },
-    template: '<audio id="chatSound" style="display: none" ng-src="{{srcSound}}"></audio>'
+    template: '' + 
+    '<div id="chatSound" style="display: none">' + 
+      '<audio ng-src="{{messageSound}}"></audio>' + 
+      '<audio ng-src="{{connectSound}}"></audio>' + 
+    '</div>'
   };
 }

@@ -11,5 +11,5 @@ export default ['$stateProvider', '$urlRouterProvider', '$locationProvider', ($s
 
     $locationProvider.html5Mode(true); // Remove # from url
 
-    $urlRouterProvider.otherwise('/chat');
+    $urlRouterProvider.otherwise('chat');
 }];

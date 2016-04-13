@@ -1,17 +1,13 @@
-export default ['$rootScope', ($rootScope) => {
+export default ['UserEventService', (UserEventService) => {
   let userConnected = {number: 1};
 
   const addConnectedUser = () => {
-    
-    $rootScope.$apply(() => {
-      userConnected.number++;
-    })
+    userConnected.number++;
+    UserEventService.emitNewUserConnection();
   };
 
   const removeConnectedUser = () => {
-    $rootScope.$apply(() => {
-      userConnected.number--;
-    })
+    userConnected.number--;
   };
 
   const getConnectedUser = () => {

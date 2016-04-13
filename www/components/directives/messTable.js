@@ -6,18 +6,11 @@ export default () => {
     scope: {
       data: '='
     },
-    controller: ['$scope', $scope => {
-      $scope.$on('newMessage', (ev, message) => {
-        $scope.$apply( () => {
-          $scope.data.unshift(message.message);
-        });
-      })
-    }],
     template: '' + 
     '<md-content>' +
       '<md-list>' + 
         '<md-list-item ng-repeat="mess in data track by mess.message_id">' +
-          '<md-card flex>' + 
+          '<md-card class="mess__wrapper" flex>' + 
             '<md-card-title>' +
               '<md-card-title-text class="mess__header" layout="row" layout-align="space-between center">' +
                 '<span class="md-headline">{{mess.username}}</span>' +
@@ -29,6 +22,6 @@ export default () => {
           '</md-card>' + 
         '</md-list-item>' +
       '</md-list>' +
-    '<md-content>'
+    '</md-content>'
   };
 }
