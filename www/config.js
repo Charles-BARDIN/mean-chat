@@ -1,4 +1,6 @@
 import angular from 'angular';
+
+// Dependancies
 import uiRouter from 'angular-ui-router';
 
 // User interface
@@ -7,6 +9,8 @@ import uiConfig from 'components/ui/uiConfig';
 // Directives
 import chatSound from 'components/directives/chatSound';
 import messTable from 'components/directives/messTable';
+import specialEnter from 'components/directives/specialEnter';
+import setTouchedOnFocus from 'components/directives/setTouchedOnFocus';
 
 // Services
 import TitleService from 'components/services/TitleService';
@@ -31,6 +35,8 @@ app.config(uiConfig);
 // Directives
 app.directive('chatSound', chatSound);
 app.directive('messTable', messTable);
+app.directive('specialEnter', specialEnter);
+app.directive('setTouchedOnFocus', setTouchedOnFocus);
 
 // Services
 app.factory('TitleService', TitleService);

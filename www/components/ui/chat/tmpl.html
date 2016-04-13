@@ -16,6 +16,7 @@
   </md-toolbar>
   <md-content layout-padding>
     <form ng-submit="submit()" 
+          novalidate
           class="chat__form"
           name="newMessForm" 
           ng-disabled="newMessForm.$invalid"
@@ -25,11 +26,11 @@
         <label>Username</label>
 
         <input type="text" 
-                class=""
-                ng-model="username" 
-                name="username"
-                aria-label="Username"
-                ng-maxlength="nameMaxLength"
+              ng-model="username" 
+              name="username"
+              aria-label="Username"
+              ng-maxlength="nameMaxLength"
+              set-touched-on-focus
         />
 
         <div ng-messages="newMessForm.username.$error" multiple md-auto-hide="true">
@@ -42,14 +43,15 @@
       <md-input-container>
         <label>Message</label>
 
-        <textarea type="text" 
-                class=""
-                ng-model="newMess" 
+        <textarea ng-model="newMess" 
                 name="newMess"
                 aria-label="message" 
-                ng-maxlength="maxLength" 
-                ng-keydown="onKeyDown($event)"
+                ng-maxlength="maxLength"
+                submit="submit()"
+                ng-focus="setTextTouched()"
                 required 
+                special-enter
+                set-touched-on-focus
         >
         </textarea>
 

@@ -15,25 +15,18 @@ export default ['$scope', 'MessagesService', 'SocketService', 'UserService', '$f
 
     const submit = () => {
       if($scope.newMess) {
-        if($scope.newMess > MESSAGE_SIZE_LIMIT){
+        if($scope.newMess.length > MESSAGE_SIZE_LIMIT){
           console.log("Message too long");
           return;
         }
 
-        if($scope.username && $scope.username > USERNAME_SIZE_LIMIT){
+        if($scope.username && $scope.username.length > USERNAME_SIZE_LIMIT){
           console.log("Username too long")
           return;
         }
 
         SocketService.sendMessage({username: $scope.username, content: $filter('smiley')($scope.newMess)});
         $scope.newMess = "";
-      }
-    };
-
-    const onKeyDown = $event => {
-      if ($event.which === 13 && !$event.shiftKey){
-        $event.preventDefault();
-        submit();
       }
     };
 
@@ -46,17 +39,16 @@ export default ['$scope', 'MessagesService', 'SocketService', 'UserService', '$f
       if($scope.volume > 1)
         $scope.volume = 0;
     };
-
-    $scope.maxLength = MESSAGE_SIZE_LIMIT;
-    $scope.nameMaxLength = USERNAME_SIZE_LIMIT;
+    
     $scope.preview = false;
     $scope.volume = 1;
+    $scope.maxLength = MESSAGE_SIZE_LIMIT;
+    $scope.nameMaxLength = USERNAME_SIZE_LIMIT;
     $scope.messageSound = newMessageSound;
     $scope.connectSound = newConnectSound;
 
     $scope.changeVolume = changeVolume;
     $scope.togglePreviewMessage = togglePreviewMessage;
-    $scope.onKeyDown = onKeyDown;
     $scope.submit = submit;
   }
 ]
