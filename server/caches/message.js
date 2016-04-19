@@ -1,4 +1,5 @@
 var Entities = require('html-entities').AllHtmlEntities;
+var writelog = require('./../writelog').writelog;
 
 var config = require('./../constants');
 var db = require('./../db/crud');
@@ -23,8 +24,7 @@ var addMessage = function(message, callback){
   if(messageCollection.length > config.CACHE_LIMIT){
     messageCollection.pop();
   }
-
-  console.log(new Date() + ': message ' + message.message_id + ' have been added to cache');
+  writelog('message ' + message.message_id + ' have been added to cache');
 
   if(callback){
     callback(null, messageToSend);
@@ -44,14 +44,14 @@ module.exports.loadFromDB = function(callback){
       for(var i = 0; i < results.length; i++){
         addMessage(results[results.length - (i + 1)]);
       }
-      console.log(new Date() + ': ' + results.length + ' message(s) recovered from database')
+      writelog(results.length + ' message(s) recovered from database');
       
       db.getLastMessageID(function(err, result){
         if(!err){
           if(result){
             message_id = result;
           }
-          console.log(new Date() + ': next message ID set to ' + message_id);
+          writelog('next message ID set to ' + message_id);
 
           if(callback){
             callback();
@@ -66,18 +66,18 @@ module.exports.checkAndFormatMessage = function(message, callback){
   if(!message.content){
     var fault = "Message content undefined or null";
 
-    console.log(new Date() + ': ' + fault);
+    writelog(fault);
     callback(fault, null);
 
   } else if (message.content.length > config.MESSAGE_SIZE_LIMIT){
     var fault = "Message size too long: " + message.content.length + ", need less than " + config.MESSAGE_SIZE_LIMIT;
 
-    console.log(new Date() + ': ' + fault);
+    writelog(fault);
     callback(fault, null)
   }else if(message.username && message.username.length > config.USERNAME_SIZE_LIMIT){
     var fault = "Username size too long: " + username.content.length + ", need less than " + config.USERNAME_SIZE_LIMIT;
 
-    console.log(new Date() + ': ' + fault);
+    writelog(fault);
     callback(fault, null);
 
   }else{
@@ -104,7 +104,7 @@ module.exports.checkAndFormatMessage = function(message, callback){
     message.message_id = message_id;
     message_id ++;
 
-    console.log(new Date() + ': message_id ' + message.message_id + ' have been assigned to message from socket ' + message.socket_id);
+    writelog('message_id ' + message.message_id + ' have been assigned to message from socket ' + message.socket_id);
     callback(null, message);
   }
 }

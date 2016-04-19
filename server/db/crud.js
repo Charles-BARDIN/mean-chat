@@ -1,10 +1,11 @@
 var Message = require('./db').Message;
 var messageCache = require('./../caches/message');
+var writelog = require('./../writelog').writelog;
 
 module.exports.getLastMessageID = function(callback){
   Message.find(function(err,results){
     if(err){
-      console.log(new Date() + ': ' + err);
+      writelog(err);
       callback(err);
 
     } else {
@@ -25,13 +26,13 @@ module.exports.addMessage = function(message, callback){
     if(!err){
       dbMess.save(function(err){
         if(err) {
-            console.log(new Date() + ': ' + err);
+            writelog(err);
 
             var fault = "Error on saving data"
             callback(fault, null);
 
         } else {
-          console.log(new Date() + ": message " + dbMess.message_id + " added to database")
+          writelog("message " + dbMess.message_id + " added to database")
           messageCache.addMessage(dbMess, function(err, result){
             if(!err){
               callback(null, result);     
@@ -49,7 +50,7 @@ module.exports.findAllMessages = function(limit, callback){
   if(limit){
     Message.find(function(err, results) {
       if(err){
-        console.log(new Date() + ': ' + err);
+        writelog(err);
         callback(err, null);
 
       } else {
@@ -63,7 +64,7 @@ module.exports.findAllMessages = function(limit, callback){
   } else {
     Message.find(function(err, results) {
       if(err){
-        console.log(new Date() + ': ' + err);
+        writelog(err);
         callback(err, null);
 
       } else {
