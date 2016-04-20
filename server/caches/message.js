@@ -1,5 +1,7 @@
 var Entities = require('html-entities').AllHtmlEntities;
 var writelog = require('./../writelog').writelog;
+var TYPE = 'MESSAGE CACHE'
+var util = require('util');
 
 var config = require('./../constants');
 var db = require('./../db/crud');
@@ -9,25 +11,17 @@ var entities = new Entities();
 var parser = require('./../bbcode/bbcode');
 
 var messageCollection = [];
-var message_id = 0;
 
 var addMessage = function(message, callback){
-  messageToSend = {
-    username: entities.decode(message.username),
-    content: entities.decode(message.content),
-    message_id: message.message_id,
-    time: message.time
-  };
-
-  messageCollection.unshift(messageToSend);
+  messageCollection.unshift(message);
 
   if(messageCollection.length > config.CACHE_LIMIT){
     messageCollection.pop();
   }
-  writelog('message ' + message.message_id + ' have been added to cache');
+  writelog('Message added to cache: ' + JSON.stringify(message), TYPE);
 
   if(callback){
-    callback(null, messageToSend);
+    callback(null, message);
   }
 };
 
@@ -44,20 +38,12 @@ module.exports.loadFromDB = function(callback){
       for(var i = 0; i < results.length; i++){
         addMessage(results[results.length - (i + 1)]);
       }
-      writelog(results.length + ' message(s) recovered from database');
-      
-      db.getLastMessageID(function(err, result){
-        if(!err){
-          if(result){
-            message_id = result;
-          }
-          writelog('next message ID set to ' + message_id);
 
-          if(callback){
-            callback();
-          }
-        }
-      })
+      writelog((results.length || 0) + ' message' + (results.length > 1 ? 's' : '') + ' recovered from database', TYPE);
+
+      if(callback){
+        callback();
+      }
     }
   });
 };
@@ -66,18 +52,18 @@ module.exports.checkAndFormatMessage = function(message, callback){
   if(!message.content){
     var fault = "Message content undefined or null";
 
-    writelog(fault);
+    writelog(fault, TYPE);
     callback(fault, null);
 
   } else if (message.content.length > config.MESSAGE_SIZE_LIMIT){
-    var fault = "Message size too long: " + message.content.length + ", need less than " + config.MESSAGE_SIZE_LIMIT;
+    var fault = "Message " + message._id + " too long: " + message.content.length + ", need less than " + config.MESSAGE_SIZE_LIMIT;
 
-    writelog(fault);
+    writelog(fault, TYPE);
     callback(fault, null)
   }else if(message.username && message.username.length > config.USERNAME_SIZE_LIMIT){
-    var fault = "Username size too long: " + username.content.length + ", need less than " + config.USERNAME_SIZE_LIMIT;
+    var fault = "Username from message " + message._id + " too long: " + username.content.length + ", need less than " + config.USERNAME_SIZE_LIMIT;
 
-    writelog(fault);
+    writelog(fault, TYPE);
     callback(fault, null);
 
   }else{
@@ -100,11 +86,6 @@ module.exports.checkAndFormatMessage = function(message, callback){
     message.username = entities.encode(message.username);
     message.content = entities.encode(message.content);
 
-    // Set id
-    message.message_id = message_id;
-    message_id ++;
-
-    writelog('message_id ' + message.message_id + ' have been assigned to message from socket ' + message.socket_id);
     callback(null, message);
   }
 }
