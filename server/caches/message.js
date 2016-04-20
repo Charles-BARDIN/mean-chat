@@ -13,6 +13,9 @@ var parser = require('./../bbcode/bbcode');
 var messageCollection = [];
 
 var addMessage = function(message, callback){
+  message.username = entities.decode(message.username),
+  message.content = entities.decode(message.content),
+
   messageCollection.unshift(message);
 
   if(messageCollection.length > config.CACHE_LIMIT){
@@ -20,7 +23,7 @@ var addMessage = function(message, callback){
   }
   writelog('Message added to cache: ' + JSON.stringify(message), TYPE);
 
-  if(callback){
+  if(callback && typeof(callback) == "function"){
     callback(null, message);
   }
 };
@@ -41,7 +44,7 @@ module.exports.loadFromDB = function(callback){
 
       writelog((results.length || 0) + ' message' + (results.length > 1 ? 's' : '') + ' recovered from database', TYPE);
 
-      if(callback){
+      if(callback && typeof(callback) == "function"){
         callback();
       }
     }
@@ -53,18 +56,21 @@ module.exports.checkAndFormatMessage = function(message, callback){
     var fault = "Message content undefined or null";
 
     writelog(fault, TYPE + ' ERROR');
-    callback(fault, null);
+    if(callback && typeof(callback) == "function")
+      callback(fault, null);
 
   } else if (message.content.length > config.MESSAGE_SIZE_LIMIT){
     var fault = "Message " + message._id + " too long: " + message.content.length + ", need less than " + config.MESSAGE_SIZE_LIMIT;
 
     writelog(fault, TYPE + ' ERROR');
-    callback(fault, null)
+    if(callback && typeof(callback) == "function")
+      callback(fault, null)
   }else if(message.username && message.username.length > config.USERNAME_SIZE_LIMIT){
     var fault = "Username from message " + message._id + " too long: " + username.content.length + ", need less than " + config.USERNAME_SIZE_LIMIT;
 
     writelog(fault, TYPE + ' ERROR');
-    callback(fault, null);
+    if(callback && typeof(callback) == "function")
+      callback(fault, null);
 
   }else{
     if(message.username){
@@ -86,6 +92,7 @@ module.exports.checkAndFormatMessage = function(message, callback){
     message.username = entities.encode(message.username);
     message.content = entities.encode(message.content);
 
-    callback(null, message);
+    if(callback && typeof(callback) == "function")
+      callback(null, message);
   }
 }

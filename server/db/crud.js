@@ -12,19 +12,22 @@ module.exports.addMessage = function(message, callback){
             writelog(err, TYPE + ' ERROR');
 
             var fault = "Error on saving data"
-            callback(fault, null);
+            if(callback && typeof(callback) == "function")
+              callback(fault, null);
 
         } else {
           writelog("Message added to database: " + JSON.stringify(dbMess), TYPE);
           messageCache.addMessage(dbMess, function(err, result){
             if(!err){
-              callback(null, result);     
+              if(callback && typeof(callback) == "function")
+                callback(null, result);     
             }
           });
         }
       });
     } else {
-      callback(err, null);
+      if(callback && typeof(callback) == "function")
+        callback(err, null);
     }
   })
 }
@@ -34,10 +37,12 @@ module.exports.findAllMessages = function(limit, callback){
     Message.find(function(err, results) {
       if(err){
         writelog(err, TYPE + ' ERROR');
-        callback(err, null);
+        if(callback && typeof(callback) == "function")
+          callback(err, null);
 
       } else {
-        callback(null, results)
+        if(callback && typeof(callback) == "function")
+          callback(null, results)
 
       }
     })
@@ -48,10 +53,12 @@ module.exports.findAllMessages = function(limit, callback){
     Message.find(function(err, results) {
       if(err){
         writelog(err, TYPE + ' ERROR');
-        callback(err, null);
+        if(callback && typeof(callback) == "function")
+          callback(err, null);
 
       } else {
-        callback(null, results)
+        if(callback && typeof(callback) == "function")
+          callback(null, results)
 
       }
     })
