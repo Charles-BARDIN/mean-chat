@@ -9,7 +9,7 @@ module.exports.addMessage = function(message, callback){
     if(!err){
       dbMess.save(function(err){
         if(err) {
-            writelog(err, TYPE);
+            writelog(err, TYPE + ' ERROR');
 
             var fault = "Error on saving data"
             callback(fault, null);
@@ -33,7 +33,7 @@ module.exports.findAllMessages = function(limit, callback){
   if(limit){
     Message.find(function(err, results) {
       if(err){
-        writelog(err, TYPE);
+        writelog(err, TYPE + ' ERROR');
         callback(err, null);
 
       } else {
@@ -47,7 +47,7 @@ module.exports.findAllMessages = function(limit, callback){
   } else {
     Message.find(function(err, results) {
       if(err){
-        writelog(err, TYPE);
+        writelog(err, TYPE + ' ERROR');
         callback(err, null);
 
       } else {
