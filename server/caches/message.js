@@ -13,6 +13,9 @@ var parser = require('./../bbcode/bbcode');
 var messageCollection = [];
 
 var addMessage = function(message, callback){
+  message.username = entities.decode(message.username),
+  message.content = entities.decode(message.content),
+
   messageCollection.unshift(message);
 
   if(messageCollection.length > config.CACHE_LIMIT){
