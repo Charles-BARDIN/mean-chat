@@ -5,6 +5,8 @@ var app = express();
 var path = require('path');
 var server = require('http').Server(app);
 var mongoose = require('mongoose');
+var writelog = require('./server/writelog').writelog;
+var TYPE = 'SERVER'
 
 // Used for production build
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,9 +33,8 @@ app.all('/*', function(req, res){
 require('./server/caches/message')
 .loadFromDB(function(){
     server.listen(PORT, function(){
-        var now = new Date();
-        console.log(now + ": server initialized with success !");
-        console.log(now + ": listening on " + PORT + "...");
+        writelog("Server initialized with success on port " + PORT, TYPE);
+        console.log("Listening on " + PORT + "...");
     });
 });
 

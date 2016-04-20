@@ -9,7 +9,7 @@ export default () => {
     template: '' + 
     '<md-content>' +
       '<md-list>' + 
-        '<md-list-item ng-repeat="mess in data track by mess.message_id">' +
+        '<md-list-item ng-repeat="mess in data track by mess._id">' +
           '<md-card class="mess__wrapper" flex>' + 
             '<md-card-title>' +
               '<md-card-title-text class="mess__header" layout="row" layout-align="space-between center">' +
