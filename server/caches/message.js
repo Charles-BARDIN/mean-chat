@@ -52,18 +52,18 @@ module.exports.checkAndFormatMessage = function(message, callback){
   if(!message.content){
     var fault = "Message content undefined or null";
 
-    writelog(fault, TYPE);
+    writelog(fault, TYPE + ' ERROR');
     callback(fault, null);
 
   } else if (message.content.length > config.MESSAGE_SIZE_LIMIT){
     var fault = "Message " + message._id + " too long: " + message.content.length + ", need less than " + config.MESSAGE_SIZE_LIMIT;
 
-    writelog(fault, TYPE);
+    writelog(fault, TYPE + ' ERROR');
     callback(fault, null)
   }else if(message.username && message.username.length > config.USERNAME_SIZE_LIMIT){
     var fault = "Username from message " + message._id + " too long: " + username.content.length + ", need less than " + config.USERNAME_SIZE_LIMIT;
 
-    writelog(fault, TYPE);
+    writelog(fault, TYPE + ' ERROR');
     callback(fault, null);
 
   }else{
